@@ -4,37 +4,41 @@ import { sign, JwtPayload } from 'jsonwebtoken';
 import { serialize } from 'cookie';
 
 import userModel, { IUser } from '../../../models/user';
+import connectToDB from '../../../services/connectDB';
 
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse,
 ) {
     if (req.method !== 'POST') {
-        res.status(404).json({ message: 'Invalid Request' });
-        return;
+        return res.status(404).json({ message: 'Invalid Request' });
     }
+    await connectToDB();
 
     const { name, email, password }: IUser = req.body;
-    if (!name || !email || !password) return;
+    if (!name || !email || !password)
+        return res.status(404).json({ message: 'Req Body is Empty' });
 
     const userData: IUser = await userModel.findOne({ email: email });
+
     if (userData) {
-        res.status(400).json({
+        res.status(200).json({
             message: 'User Already Exist with This Email',
         });
         return;
     } else {
         hash(password, 10, (err: Error, hash: string) => {
             if (err) {
-                res.status(408).json({ message: 'Something went wrong' });
-                return;
+                return res
+                    .status(408)
+                    .json({ message: 'Something went wrong' });
             }
+
             const user = new userModel({ name, email, password: hash });
 
             user.save((error: Error) => {
                 if (error) {
-                    res.status(408).json(error.message);
-                    return;
+                    return res.status(408).json(error.message);
                 }
                 const payload: JwtPayload = {
                     name: user.name,
@@ -55,11 +59,10 @@ export default async function handler(
                     }),
                 );
 
-                res.status(201).json({
+                return res.status(201).json({
                     message: 'User Registered!',
                     isAuthenticated: true,
                 });
-                return;
             });
         });
     }

@@ -63,7 +63,7 @@ const HomePage = () => {
                         </Link>
                     </div>
 
-                    <Link href="/">
+                    <Link href="/register">
                         <a className="px-4 py-2 text-[#0a66c2] rounded-3xl border-[1.5px] border-[#0a66c2] hover:text-[#004182] hover:border-[#004182] hover:bg-[#0a66c21c]">
                             Sign in
                         </a>
@@ -73,7 +73,7 @@ const HomePage = () => {
             <section>
                 <div className="sm:flex sm:justify-between">
                     <div className="mt-8 sm:mt-[50px] sm:max-w-[50vw] w-full">
-                        <div className="p-4 sm:mb-16 sm:pl-24  text-3xl sm:text-5xl leading-normal text-orange-600">
+                        <div className="p-4 sm:mb-16 sm:pl-24  text-3xl sm:text-[2.9rem] leading-normal text-orange-600">
                             <h1>Welcome to your professional community</h1>
                         </div>
                         <div className="sm:px-24 mt-4 ">
