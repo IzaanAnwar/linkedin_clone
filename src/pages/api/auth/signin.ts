@@ -4,6 +4,7 @@ import { JwtPayload, sign } from 'jsonwebtoken';
 import { serialize } from 'cookie';
 
 import userModel, { IUser } from '../../../models/user';
+import connectToDB from '../../../services/connectDB';
 
 export default async function handler(
     req: NextApiRequest,
@@ -13,20 +14,27 @@ export default async function handler(
         res.status(404).json({ message: 'Invalid Request' });
         return;
     }
-    const { name, email, password }: IUser = req.body;
-    if (!email || !password || !name) return;
+    await connectToDB();
+    const { email, password }: IUser | undefined = req.query;
+    console.log(email, password);
+
+    if (!email || !password)
+        return res.status(200).json({
+            message: 'Some Field missing!',
+            isAuthenticated: false,
+        });
 
     const user: IUser = await userModel.findOne({
         email: email,
     });
 
-    if (!user || user?.name !== name) {
-        res.status(400).json({
-            message: 'Check Your Credentials',
+    if (email !== user?.email)
+        return res.status(200).json({
+            message: 'Check your credentials',
+            isAuthenticated: false,
         });
-        return;
-    }
-    compare(password, user.password, (err: Error, result: boolean) => {
+
+    compare(password, user?.password, (err: Error, result: boolean) => {
         if (!err && result) {
             const payload: JwtPayload = {
                 name: user.name,
@@ -47,16 +55,14 @@ export default async function handler(
                 }),
             );
 
-            res.status(200).json({
+            return res.status(200).json({
                 message: 'Welcome to the app!',
                 isAuthenticated: true,
             });
-            return;
         }
-        res.status(400).json({
+        return res.status(200).json({
             message: 'Check your credentials',
             isAuthenticated: false,
         });
-        return;
     });
 }

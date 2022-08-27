@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -43,10 +43,11 @@ const register = () => {
 
         if (response.status === 200) {
             setAuthMessage(response.data.message);
+            return false;
         } else if (response.status === 201) {
             redirect.push('/dashboard');
         } else {
-            setAuthMessage(null);
+            setAuthMessage('Something went wrong!');
         }
     };
     return (
@@ -70,13 +71,15 @@ const register = () => {
             </nav>
 
             <div className="sm:max-w-[50vw] w-screen mx-auto ">
-                <div className="w-[50vw] h-[2rem]  text-center text-red-600">
-                    {authMessage && authMessage}
+                <div className="min-w-[50vw] h-[2rem]  text-center text-red-600">
+                    {authMessage}
                 </div>
                 <form
                     onSubmit={async (e) => {
                         e.preventDefault();
                         await handleSubmit();
+
+                        console.log(authMessage);
                     }}
                     className="block max-w-fit sm:p-4 mx-auto"
                 >
@@ -84,34 +87,34 @@ const register = () => {
                         Email or Phone Number
                     </label>
                     <input
-                        className="mb-6 sm:rounded border-solid border-[1px] border-gray-400 block px-2  py-1 w-screen sm:w-[24rem]"
+                        className="mb-6 sm:rounded border-solid border-[1px] border-gray-400 block px-2  py-1 sm:py-2 w-screen sm:w-[24rem]"
                         type="email"
                         name="email"
-                        required
-                        onChange={(e) => {
-                            setName(e.target.value);
-                        }}
-                        value={name}
-                    />
-                    <label className="text-gray-500" htmlFor="name">
-                        Your Name
-                    </label>
-                    <input
-                        className="mb-6  sm:rounded border-solid border-[1px] border-gray-400 block px-2  py-1 w-screen sm:w-[24rem]"
-                        type="text"
-                        name="name"
                         required
                         onChange={(e) => {
                             setEmailOrPhone(e.target.value);
                         }}
                         value={emailOrPhone}
                     />
+                    <label className="text-gray-500" htmlFor="name">
+                        Your Name
+                    </label>
+                    <input
+                        className="mb-6  sm:rounded border-solid border-[1px] border-gray-400 block px-2  py-1 sm:py-2 w-screen sm:w-[24rem]"
+                        type="text"
+                        name="name"
+                        required
+                        onChange={(e) => {
+                            setName(e.target.value);
+                        }}
+                        value={name}
+                    />
                     <label className="text-gray-500" htmlFor="password">
                         Password
                     </label>
                     <div>
                         <input
-                            className="mb-6  sm:rounded border-solid border-[1px] border-gray-400  px-2  py-1 w-screen sm:w-[24rem]"
+                            className="mb-6  sm:rounded border-solid border-[1px] border-gray-400  px-2  py-1 sm:py-2 w-screen sm:w-[24rem]"
                             type={passwordType}
                             name="password"
                             required
@@ -122,7 +125,7 @@ const register = () => {
                             value={password}
                         />
                         <i
-                            className="text-gray-500 cursor-pointer ml-[-50px]"
+                            className="text-[#0a66c2] cursor-pointer ml-[-50px]"
                             onClick={(e) => {
                                 if (passwordInput === 'show') {
                                     setPasswordInput('hide');
@@ -140,7 +143,7 @@ const register = () => {
                     </div>
                     <input
                         type="submit"
-                        className="px-4 py-2 w-screen sm:w-full sm:rounded-3xl bg-[#0a66c2]"
+                        className="text-white px-4 py-2 w-screen sm:w-full sm:rounded-3xl bg-[#0a66c2]"
                         value="Continue"
                     />
                 </form>

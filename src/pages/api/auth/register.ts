@@ -30,7 +30,7 @@ export default async function handler(
         hash(password, 10, (err: Error, hash: string) => {
             if (err) {
                 return res
-                    .status(408)
+                    .status(200)
                     .json({ message: 'Something went wrong' });
             }
 
@@ -38,7 +38,7 @@ export default async function handler(
 
             user.save((error: Error) => {
                 if (error) {
-                    return res.status(408).json(error.message);
+                    return res.status(408).json({ message: error.message });
                 }
                 const payload: JwtPayload = {
                     name: user.name,
