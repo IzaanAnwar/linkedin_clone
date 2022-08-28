@@ -2,14 +2,13 @@
 import React from 'react';
 import Link from 'next/link';
 import Navbar from '../components/Navbar';
-// import { IPost } from '../models/post';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const dashboard = () => {
     return (
         <>
-            <Navbar></Navbar>
+            <Navbar />
             <div className="grid">
                 <Profile />
             </div>

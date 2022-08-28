@@ -11,7 +11,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
-// import LightModeIcon from '@mui/icons-material/LightMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import { useTheme } from 'next-themes';
 
 const Navbar = () => {
     return (
@@ -81,13 +82,31 @@ const Navbar = () => {
                             <a>Work</a>
                         </Link>
                     </div>
-                    <i className="px-4">
-                        <Brightness4Icon />
-                    </i>
+
+                    <ThemeChanger />
                 </div>
             </nav>
         </>
     );
 };
-
 export default Navbar;
+const ThemeChanger = () => {
+    const { theme, setTheme } = useTheme();
+    if (theme === 'dark') {
+        return (
+            <div>
+                <button onClick={() => setTheme('light')}>
+                    <LightModeIcon />
+                </button>
+            </div>
+        );
+    } else {
+        return (
+            <div>
+                <button onClick={() => setTheme('dark')}>
+                    <Brightness4Icon />
+                </button>
+            </div>
+        );
+    }
+};
