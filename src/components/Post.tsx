@@ -12,7 +12,7 @@ export default function Post(props: IPost) {
             url:
                 process.env.NODE_ENV === 'development'
                     ? `http://localhost:3000/api/posts/${props._id}`
-                    : `https://link-up-beta.vercel.app/api/posts${props._id}`,
+                    : `/api/posts${props._id}`,
         };
         const response: AxiosResponse = await axios(config);
         if (response.status === 200) {
