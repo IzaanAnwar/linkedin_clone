@@ -19,7 +19,7 @@ const postSchema = new mongoose.Schema<IPost>({
     },
     imageURL: {
         type: String,
-        required: true,
+        required: false,
     },
     likes: {
         type: Number,

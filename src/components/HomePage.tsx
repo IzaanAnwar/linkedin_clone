@@ -63,7 +63,7 @@ const HomePage = () => {
                         </Link>
                     </div>
 
-                    <Link href="/register">
+                    <Link href="/signin">
                         <a className="px-4 py-2 text-[#0a66c2] rounded-3xl border-[1.5px] border-[#0a66c2] hover:text-[#004182] hover:border-[#004182] hover:bg-[#0a66c21c]">
                             Sign in
                         </a>

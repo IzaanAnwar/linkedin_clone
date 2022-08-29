@@ -21,11 +21,10 @@ export default async function handler(
 
     const userData: IUser = await userModel.findOne({ email: email });
 
-    if (userData) {
-        res.status(200).json({
+    if (userData && userData.email === email) {
+        return res.status(200).json({
             message: 'User Already Exist with This Email',
         });
-        return;
     } else {
         hash(password, 10, (err: Error, hash: string) => {
             if (err) {

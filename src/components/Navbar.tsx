@@ -10,15 +10,12 @@ import MessageIcon from '@mui/icons-material/Message';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import { useTheme } from 'next-themes';
 
 const Navbar = () => {
     return (
         <>
-            <nav className="flex justify-between items-center px-24 py-4 shadow-md">
-                <div className="flex justify-between px-4">
+            <nav className="flex justify-between items-center px-24 py-4 shadow-md bg-gray-800">
+                <div className="flex justify-between px-4 ">
                     <div className="w-[50px] h-[50px]">
                         <Image
                             width={50}
@@ -28,18 +25,18 @@ const Navbar = () => {
                             className="min-w-full"
                         ></Image>
                     </div>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center  justify-between">
                         <i className="relative left-8">
-                            <SearchIcon />
+                            <SearchIcon className="text-white" />
                         </i>
                         <input
                             type="text"
                             placeholder="search"
-                            className="border-2 rounded pl-8 pr-2 py-2"
+                            className="border-2 border-gray-500 rounded pl-8 pr-2 py-2 bg-gray-500"
                         />
                     </div>
                 </div>
-                <div className="text-gray-700 flex justify-evenly">
+                <div className="text-gray-200 flex justify-evenly">
                     <div className="px-4 flex flex-col  justify-center items-center text-center text-sm">
                         <HomeIcon />
                         <Link href="/dashboard">
@@ -82,31 +79,9 @@ const Navbar = () => {
                             <a>Work</a>
                         </Link>
                     </div>
-
-                    <ThemeChanger />
                 </div>
             </nav>
         </>
     );
 };
 export default Navbar;
-const ThemeChanger = () => {
-    const { theme, setTheme } = useTheme();
-    if (theme === 'dark') {
-        return (
-            <div>
-                <button onClick={() => setTheme('light')}>
-                    <LightModeIcon />
-                </button>
-            </div>
-        );
-    } else {
-        return (
-            <div>
-                <button onClick={() => setTheme('dark')}>
-                    <Brightness4Icon />
-                </button>
-            </div>
-        );
-    }
-};

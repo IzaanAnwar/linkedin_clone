@@ -7,34 +7,35 @@ export default async function handler(
     res: NextApiResponse,
 ) {
     if (!isAuthenticatedFn(req)) {
-        res.status(500).json({ message: 'Sorry you are not Authenticated' });
+        return res
+            .status(500)
+            .json({ message: 'Sorry you are not Authenticated' });
     }
     if (req.method === 'GET') {
         const allPosts: Array<IPost> = await postModel.find({});
         if (allPosts.length === 0) {
-            res.status(404).json({ message: 'No Posts' });
-            return;
+            return res.status(200).json({ message: 'Not Found' });
         }
 
-        res.status(200).json({ data: allPosts });
+        res.status(200).json({ message: 'Found', posts: allPosts });
     } else if (req.method === 'POST') {
-        const { name, message, imageURL, likes }: IPost = req.body;
+        const { name, message, imageURL = '', likes }: IPost = req.body;
+
         const newPost = new postModel<IPost>({
             name,
             message,
-            imageURL,
+            imageURL: imageURL ? imageURL : '',
             likes,
         });
         newPost.save((error) => {
-            if (error) res.status(404).json({ message: error.message });
-            res.status(201).json({
+            if (error) res.status(500).json({ message: error.message });
+            return res.status(201).json({
                 message: 'New Post Created',
                 data: newPost,
             });
         });
     } else {
-        res.status(404).json({ message: 'Invalid Request!' });
-        return;
+        return res.status(404).json({ message: 'Invalid Request!' });
     }
 }
 
