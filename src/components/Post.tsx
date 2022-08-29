@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import React from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { IPost } from '../models/post';
@@ -10,7 +9,10 @@ export default function Post(props: IPost) {
     const hadleDeletePost = async () => {
         const config: AxiosRequestConfig = {
             method: 'DELETE',
-            url: `http://localhost:3000/api/posts/${props._id}`,
+            url:
+                process.env.NODE_ENV === 'development'
+                    ? `http://localhost:3000/api/posts/${props._id}`
+                    : `https://link-up/api/posts${props._id}`,
         };
         const response: AxiosResponse = await axios(config);
         if (response.status === 200) {
@@ -32,6 +34,7 @@ export default function Post(props: IPost) {
             <div className="border-b-2 border-black ">
                 <h1 className="p-4 break-words">{props?.message}</h1>
                 {props?.imageURL && (
+                    // eslint-disable-next-line @next/next/no-img-element
                     <img
                         className="min-w-full"
                         src={props?.imageURL}
@@ -46,6 +49,7 @@ export default function Post(props: IPost) {
                 <a
                     className="cursor-pointer  border-2 px-4 py-2 rounded-3xl border-black hover:text-gray-100 hover:bg-gray-700 duration-200"
                     onClick={(e) => {
+                        e.preventDefault();
                         hadleDeletePost();
                     }}
                 >

@@ -23,7 +23,10 @@ import CreatePost from '../components/CreatePost';
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const config: AxiosRequestConfig = {
         method: 'GET',
-        url: 'http://localhost:3000/api/posts',
+        url:
+            process.env.NODE_ENV === 'development'
+                ? `http://localhost:3000/api/posts/`
+                : `https://link-up/api/posts`,
         headers: { Cookie: `auth_token=${context.req.cookies.auth_token}` },
     };
     try {
@@ -250,6 +253,7 @@ function AdvertismentBox() {
                         className="w-fit h-fit rounded-lg"
                         layout="responsive"
                         src="/Dashboard-Promo-Image.jpg"
+                        alt="promo image"
                     ></Image>
                 </Link>
             </div>

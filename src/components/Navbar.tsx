@@ -23,6 +23,7 @@ const Navbar = () => {
                             src="/linkedin-icon.svg"
                             layout="responsive"
                             className="min-w-full"
+                            alt="logo"
                         ></Image>
                     </div>
                     <div className="flex items-center  justify-between">

@@ -1,3 +1,5 @@
-export default function handler(req, res) {
-	res.status(200).json({ name: 'codedamn' })
+import { NextApiRequest, NextApiResponse } from 'next';
+
+export default function handler(_req: NextApiRequest, res: NextApiResponse) {
+    res.status(200).json({ name: 'jana lawde' });
 }

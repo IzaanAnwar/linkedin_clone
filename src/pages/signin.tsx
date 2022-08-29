@@ -5,13 +5,13 @@ import { useRouter } from 'next/router';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const signin = () => {
-    const router = useRouter();
     const [passwordType, setPasswordType] = useState('password');
     const [passwordInput, setPasswordInput] = useState('show');
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [recMessage, setRecMessage] = useState('');
+    const router = useRouter();
 
     const handlePasswordType = () => {
         if (passwordInput === 'show') {

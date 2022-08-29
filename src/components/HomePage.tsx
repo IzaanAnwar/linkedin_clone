@@ -96,6 +96,7 @@ const HomePage = () => {
                             width="650"
                             height="650"
                             src="/Landing-Page-Stock-Image.svg"
+                            alt="landing page image"
                         ></Image>
                     </div>
                 </div>

@@ -66,7 +66,7 @@ const register = () => {
                     </Link>
                 </div>
                 <div className="text-lg text-gray-800 p-4">
-                    <h1>Join Linkedin now —— it's free</h1>
+                    <h1>Join Linkedin now —— it&#39;s free</h1>
                 </div>
             </nav>
 

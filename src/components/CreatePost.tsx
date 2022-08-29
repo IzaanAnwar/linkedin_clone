@@ -11,7 +11,10 @@ const CreatePost = () => {
     const handleSubmit = async () => {
         const config: AxiosRequestConfig = {
             method: 'POST',
-            url: 'http://localhost:3000/api/posts',
+            url:
+                process.env.NODE_ENV === 'development'
+                    ? `http://localhost:3000/api/posts/`
+                    : `https://link-up/api/posts/`,
             data: {
                 name,
                 message,
