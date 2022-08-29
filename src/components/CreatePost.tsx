@@ -14,7 +14,7 @@ const CreatePost = () => {
             url:
                 process.env.NODE_ENV === 'development'
                     ? `http://localhost:3000/api/posts/`
-                    : `https://link-up-beta/api/posts/`,
+                    : `https://link-up-beta.vercel.app/api/posts/`,
             data: {
                 name,
                 message,

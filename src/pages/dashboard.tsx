@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         url:
             process.env.NODE_ENV === 'development'
                 ? `http://localhost:3000/api/posts/`
-                : `https://link-up-beta/api/posts`,
+                : `https://link-up-beta.vercel.app/api/posts`,
         headers: { Cookie: `auth_token=${context.req.cookies.auth_token}` },
     };
     try {
